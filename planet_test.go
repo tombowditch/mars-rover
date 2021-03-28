@@ -63,6 +63,16 @@ func TestRover(t *testing.T) {
 			Input:          "5 5\n0 0 N\nMMMQ",
 			ExpectedOutput: "unknown instruction Q",
 		},
+		{
+			Name:           "start rover outside of plateau (X)",
+			Input:          "5 5\n6 0 N\nMMM",
+			ExpectedOutput: "rover would start outside of plateau",
+		},
+		{
+			Name:           "start rover outside of plateau (Y)",
+			Input:          "5 5\n0 6 N\nMMM",
+			ExpectedOutput: "rover would start outside of plateau",
+		},
 	}
 
 	for _, test := range tests {

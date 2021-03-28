@@ -35,6 +35,11 @@ func Start(input string) (string, error) {
 			return "", err
 		}
 
+		// check to make sure rover doesn't start outside of plateau
+		if x > planet.maxX || y > planet.maxY {
+			return "", errors.New("rover would start outside of plateau")
+		}
+
 		// make rover struct with all info
 		roverPlanet := rover{
 			planet:    &planet,
