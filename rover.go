@@ -9,7 +9,6 @@ type rover struct {
 	positionX int
 	positionY int
 	direction Direction
-	actions   []string
 }
 
 func (r *rover) Move() error {

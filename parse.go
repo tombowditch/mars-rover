@@ -42,7 +42,6 @@ func ParseRoverInput(inputLines []string) [][]string {
 
 	for _, line := range inputLines {
 		// if roverConfiguration len == 2, append to output & reset
-
 		if len(roverConfiguration) == 2 {
 			parsed = append(parsed, roverConfiguration)
 			roverConfiguration = make([]string, 0)
@@ -52,7 +51,7 @@ func ParseRoverInput(inputLines []string) [][]string {
 		roverConfiguration = append(roverConfiguration, line)
 	}
 
-	// double check if roverConfiguration has another set of insutrctions before we return
+	// double check if roverConfiguration has another set of instructions before we return
 	if len(roverConfiguration) == 2 {
 		parsed = append(parsed, roverConfiguration)
 	}
@@ -63,7 +62,7 @@ func ParseRoverInput(inputLines []string) [][]string {
 func ParseRoverLocation(input string) (x int, y int, dir Direction, err error) {
 	splitInput := strings.Split(input, " ")
 
-	// rover split inputs should have 3 elements
+	// rover split inputs should have 3 elements, 'X Y D' e.g. 0 0 N
 	if len(splitInput) != 3 {
 		return 0, 0, 0, errors.New("invalid rover position")
 	}
