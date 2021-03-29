@@ -49,5 +49,5 @@ func Start(input string) (string, error) {
 	}
 
 	// return the final output, minus the last line (trailing \n)
-	return out[:len(out)-1], nil
+	return strings.TrimSuffix(out, "\n"), nil
 }
