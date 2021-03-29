@@ -5,7 +5,7 @@ import (
 )
 
 type rover struct {
-	planet    *mars
+	planet    *plateau
 	positionX int
 	positionY int
 	direction Direction

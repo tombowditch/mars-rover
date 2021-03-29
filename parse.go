@@ -7,32 +7,32 @@ import (
 	"strings"
 )
 
-type mars struct {
+type plateau struct {
 	maxX int
 	maxY int
 }
 
-func ParsePlateauSize(rawInput string) (mars, error) {
+func ParsePlateauSize(rawInput string) (plateau, error) {
 	parsedCoords := strings.Split(rawInput, " ")
 
 	// do we either have too many or too little arguments
 	if len(parsedCoords) != 2 {
-		return mars{}, errors.New(fmt.Sprintf("invalid plateau input"))
+		return plateau{}, errors.New(fmt.Sprintf("invalid plateau input"))
 	}
 
 	// parse x to int
 	coordX, err := strconv.Atoi(parsedCoords[0])
 	if err != nil {
-		return mars{}, errors.New(fmt.Sprintf("invalid X coordinate %s", parsedCoords[0]))
+		return plateau{}, errors.New(fmt.Sprintf("invalid X coordinate %s", parsedCoords[0]))
 	}
 
 	// parse y to int
 	coordY, err := strconv.Atoi(parsedCoords[1])
 	if err != nil {
-		return mars{}, errors.New(fmt.Sprintf("invalid Y coordinate %s", parsedCoords[1]))
+		return plateau{}, errors.New(fmt.Sprintf("invalid Y coordinate %s", parsedCoords[1]))
 	}
 
-	return mars{maxX: coordX, maxY: coordY}, nil
+	return plateau{maxX: coordX, maxY: coordY}, nil
 }
 
 func ParseRoverInput(inputLines []string) [][]string {
