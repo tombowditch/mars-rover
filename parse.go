@@ -64,7 +64,8 @@ func ParseRoverInputsToRovers(planet plateau, inputLines []string) ([]rover, err
 			return []rover{}, err
 		}
 
-		if x > planet.maxX || y > planet.maxY {
+		// check to see if rover starts outside of plateau
+		if x > planet.maxX || y > planet.maxY || x < 0 || y < 0 {
 			return []rover{}, errors.New("rover would start outside of plateau")
 		}
 

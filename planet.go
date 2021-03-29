@@ -29,7 +29,6 @@ func Start(input string) (string, error) {
 
 	// for every rover input...
 	for _, r := range rovers {
-		////////////
 		// for every instruction...
 		for _, instruction := range r.actions {
 			// execute instruction
