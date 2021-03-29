@@ -9,21 +9,22 @@ type rover struct {
 	positionX int
 	positionY int
 	direction Direction
+	actions   []string
 }
 
 func (r *rover) Move() error {
 	switch r.direction {
 	case DirNorth:
-		r.positionY = max(r.positionY+1, r.planet.maxY)
+		r.positionY = boundsCheck(r.positionY+1, 0, r.planet.maxY)
 		break
 	case DirEast:
-		r.positionX = max(r.positionX+1, r.planet.maxX)
+		r.positionX = boundsCheck(r.positionX+1, 0, r.planet.maxX)
 		break
 	case DirSouth:
-		r.positionY = min(r.positionY-1, 0)
+		r.positionY = boundsCheck(r.positionY-1, 0, r.planet.maxY)
 		break
 	case DirWest:
-		r.positionX = min(r.positionX-1, 0)
+		r.positionX = boundsCheck(r.positionX-1, 0, r.planet.maxX)
 		break
 	default:
 		return fmt.Errorf("unknown direction %d", r.direction)

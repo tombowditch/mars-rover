@@ -22,49 +22,31 @@ func Start(input string) (string, error) {
 	}
 
 	// take the rest of the input (minus line 1 which is plateau size) and parse rover inputs from it
-	roverInputs := ParseRoverInput(inputLines[1:])
+	rovers, err := ParseRoverInputsToRovers(planet, inputLines[1:])
+	if err != nil {
+		return "", err
+	}
 
 	// for every rover input...
-	for _, roverInput := range roverInputs {
-		roverLocation := roverInput[0]
-		roverInstructions := roverInput[1]
-
-		// parse rover starting location
-		x, y, dir, err := ParseRoverLocation(roverLocation)
-		if err != nil {
-			return "", err
-		}
-
-		// check to make sure rover doesn't start outside of plateau
-		if x > planet.maxX || y > planet.maxY {
-			return "", errors.New("rover would start outside of plateau")
-		}
-
-		// make rover struct with all info
-		roverPlanet := rover{
-			planet:    &planet,
-			positionX: x,
-			positionY: y,
-			direction: dir,
-		}
-
+	for _, r := range rovers {
+		////////////
 		// for every instruction...
-		for _, instruction := range strings.Split(roverInstructions, "") {
+		for _, instruction := range r.actions {
 			// execute instruction
-			err := roverPlanet.ExecuteInstruction(instruction)
+			err := r.ExecuteInstruction(instruction)
 			if err != nil {
 				return "", err
 			}
 		}
 
 		// get the ending direction
-		roverDir, err := roverPlanet.direction.ConvertToString()
+		roverDir, err := r.direction.ConvertToString()
 		if err != nil {
 			return "", err
 		}
 
 		// add it to the final output
-		out += fmt.Sprintf("%d %d %s\n", roverPlanet.positionX, roverPlanet.positionY, roverDir)
+		out += fmt.Sprintf("%d %d %s\n", r.positionX, r.positionY, roverDir)
 	}
 
 	// return the final output, minus the last line (trailing \n)

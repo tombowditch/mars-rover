@@ -35,10 +35,11 @@ func ParsePlateauSize(rawInput string) (plateau, error) {
 	return plateau{maxX: coordX, maxY: coordY}, nil
 }
 
-func ParseRoverInput(inputLines []string) [][]string {
+func ParseRoverInputsToRovers(planet plateau, inputLines []string) ([]rover, error) {
 	// inputLines is the input, minus the first line (plateau size)
 	roverConfiguration := make([]string, 0)
 	parsed := make([][]string, 0)
+	rovers := make([]rover, 0)
 
 	for _, line := range inputLines {
 		// if roverConfiguration len == 2, append to output & reset
@@ -56,7 +57,28 @@ func ParseRoverInput(inputLines []string) [][]string {
 		parsed = append(parsed, roverConfiguration)
 	}
 
-	return parsed
+	// parse rover configurations to rovers
+	for _, r := range parsed {
+		x, y, dir, err := ParseRoverLocation(r[0])
+		if err != nil {
+			return []rover{}, err
+		}
+
+		if x > planet.maxX || y > planet.maxY {
+			return []rover{}, errors.New("rover would start outside of plateau")
+		}
+
+		rovers = append(rovers, rover{
+			planet:    &planet,
+			positionX: x,
+			positionY: y,
+			direction: dir,
+			actions:   strings.Split(r[1], ""),
+		})
+
+	}
+
+	return rovers, nil
 }
 
 func ParseRoverLocation(input string) (x int, y int, dir Direction, err error) {

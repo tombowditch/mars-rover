@@ -11,6 +11,22 @@ type RoverTest struct {
 	ExpectedOutput string
 }
 
+func TestBounds(t *testing.T) {
+	t.Run("bounds check positive", func(t *testing.T) {
+		result := boundsCheck(10, 0, 5)
+		if result != 5 {
+			t.Errorf("bounds check returned wrong result")
+		}
+	})
+
+	t.Run("bounds check negative", func(t *testing.T) {
+		result := boundsCheck(-3, 0, 5)
+		if result != 0 {
+			t.Errorf("bounds check returned wrong result")
+		}
+	})
+}
+
 func TestRover(t *testing.T) {
 	tests := []RoverTest{
 		{
