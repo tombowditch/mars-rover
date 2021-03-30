@@ -5,11 +5,11 @@ import (
 )
 
 type rover struct {
-	planet    *plateau
-	positionX int
-	positionY int
-	direction Direction
-	actions   []string
+	planet       *plateau
+	positionX    int
+	positionY    int
+	direction    Direction
+	instructions []string
 }
 
 func (r *rover) Move() error {

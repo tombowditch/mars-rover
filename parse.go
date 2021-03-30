@@ -64,6 +64,7 @@ func ParseRoverInputs(planet plateau, inputLines []string) ([]rover, error) {
 
 	// parse rover configurations to rovers
 	for _, r := range parsed {
+		roverInstructionsRaw := r[1] // r[1] is our 2nd input line of rover, e.g. MMMMRMMMMLMMMM
 		x, y, dir, err := ParseRoverLocation(r[0])
 		if err != nil {
 			return []rover{}, err
@@ -74,12 +75,14 @@ func ParseRoverInputs(planet plateau, inputLines []string) ([]rover, error) {
 			return []rover{}, errors.New("rover would start outside of plateau")
 		}
 
+		roverInstructions := strings.Split(roverInstructionsRaw, "")
+
 		rovers = append(rovers, rover{
-			planet:    &planet,
-			positionX: x,
-			positionY: y,
-			direction: dir,
-			actions:   strings.Split(r[1], ""),
+			planet:       &planet,
+			positionX:    x,
+			positionY:    y,
+			direction:    dir,
+			instructions: roverInstructions,
 		})
 
 	}
