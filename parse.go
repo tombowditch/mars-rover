@@ -23,19 +23,24 @@ func ParsePlateauSize(rawInput string) (plateau, error) {
 	// parse x to int
 	coordX, err := strconv.Atoi(parsedCoords[0])
 	if err != nil {
-		return plateau{}, errors.New(fmt.Sprintf("invalid X coordinate %s", parsedCoords[0]))
+		return plateau{}, fmt.Errorf("invalid X coordinate %s", parsedCoords[0])
 	}
 
 	// parse y to int
 	coordY, err := strconv.Atoi(parsedCoords[1])
 	if err != nil {
-		return plateau{}, errors.New(fmt.Sprintf("invalid Y coordinate %s", parsedCoords[1]))
+		return plateau{}, fmt.Errorf("invalid Y coordinate %s", parsedCoords[1])
+	}
+
+	// check if plateau size is negative, also check we have a plateau (i.e. coordX and coordY isnt 0)
+	if coordX < 1 && coordY < 1 {
+		return plateau{}, fmt.Errorf("plateau coordinates must be positive")
 	}
 
 	return plateau{maxX: coordX, maxY: coordY}, nil
 }
 
-func ParseRoverInputsToRovers(planet plateau, inputLines []string) ([]rover, error) {
+func ParseRoverInputs(planet plateau, inputLines []string) ([]rover, error) {
 	// inputLines is the input, minus the first line (plateau size)
 	roverConfiguration := make([]string, 0)
 	parsed := make([][]string, 0)

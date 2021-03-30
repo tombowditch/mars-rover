@@ -99,6 +99,11 @@ func TestRover(t *testing.T) {
 			Input:          "5 5\n0 -2 N\nMMM",
 			ExpectedOutput: "rover would start outside of plateau",
 		},
+		{
+			Name:           "plateau size negative",
+			Input:          "-2 -5\n0 0 N\nMMM",
+			ExpectedOutput: "plateau coordinates must be positive",
+		},
 	}
 
 	for _, test := range tests {

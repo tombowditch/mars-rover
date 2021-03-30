@@ -22,7 +22,7 @@ func Start(input string) (string, error) {
 	}
 
 	// take the rest of the input (minus line 1 which is plateau size) and parse rover inputs from it
-	rovers, err := ParseRoverInputsToRovers(planet, inputLines[1:])
+	rovers, err := ParseRoverInputs(planet, inputLines[1:])
 	if err != nil {
 		return "", err
 	}
